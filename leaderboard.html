@@ -1,5 +1,5 @@
 <head>
-  <title>Leaderboard</title>
+  <title>Snake and Ladder</title>
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
 </head>
@@ -7,27 +7,48 @@
 <body>
   <div class="outer">
     <div class="logo"></div>
-    <h1 class="title">Leaderboard</h1>
-    <div class="subtitle">Select a scientist to give them points</div>
+    <h1 class="title">Snake and Ladder</h1>
+    <div class="subtitle">Select a scientist to start the game!</div>
     {{> leaderboard}}
   </div>
 </body>
 
 <template name="leaderboard">
+  <div class="details">
+    <button class="reset">Reset</button>
+  </div>
+
   <ol class="leaderboard">
     {{#each players}}
       {{> player}}
     {{/each}}
   </ol>
 
-  {{#if selectedName}}
+  {{#if endGame}}
     <div class="details">
-      <div class="name">{{selectedName}}</div>
-      <button class="inc">Add 5 points</button>
+      <button class="reset">Reset</button>
+      <div class="message">Game End, {{winner}} won!</div>
     </div>
   {{else}}
-    <div class="message">Click a player to select</div>
+    {{#if startGame}}
+      <div class="details">
+        <button class="inc">Roll</button>
+        <div class="message"> Start Rolling! </div>
+      </div>
+    {{else}}
+      {{#if selectedName}}
+        <div class="details">
+          <button class="inc">Roll</button>
+          <div class="message"> {{message}}</div>
+        </div>
+      {{else}}
+        <div class="message">Click a player to select</div>
+      {{/if}}
+    {{/if}}
   {{/if}}
+
+
+
 </template>
 
 <template name="player">
